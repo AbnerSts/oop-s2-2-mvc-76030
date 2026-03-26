@@ -6,7 +6,7 @@ using FoodSafety.mvc.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ SERILOG CONFIG
+
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -19,11 +19,11 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// ✅ SQL SERVER (FIXED)
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ✅ IDENTITY
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -43,10 +43,10 @@ using (var scope = app.Services.CreateScope())
     await SeedData.Initialize(services);
 }
 
-    // ✅ GLOBAL ERROR HANDLING
+    
     app.UseExceptionHandler("/Home/Error");
 
-// ✅ USER ENRICHMENT (VERY IMPORTANT FOR MARKS)
+
 app.Use(async (context, next) =>
 {
     using (Serilog.Context.LogContext.PushProperty("UserName",

@@ -28,40 +28,40 @@ namespace FoodSafety.mvc.Controllers
                 .Include(i => i.Premises)
                 .AsQueryable();
 
-            // 🔍 FILTER BY TOWN
+            
             if (!string.IsNullOrEmpty(town))
             {
                 inspections = inspections.Where(i => i.Premises.Town == town);
             }
 
-            // 🔍 FILTER BY RISK
+            
             if (!string.IsNullOrEmpty(risk))
             {
                 inspections = inspections.Where(i => i.Premises.RiskRating == risk);
             }
 
-            // 📊 INSPECTIONS THIS MONTH
+            
             var inspectionsThisMonth = await inspections.CountAsync(i =>
                 i.InspectionDate.Month == now.Month &&
                 i.InspectionDate.Year == now.Year);
 
-            // 📊 FAILED THIS MONTH
+            
             var failedThisMonth = await inspections.CountAsync(i =>
                 i.Outcome == "Fail" &&
                 i.InspectionDate.Month == now.Month &&
                 i.InspectionDate.Year == now.Year);
 
-            // 📊 OVERDUE FOLLOW-UPS
+            
             var overdueFollowUps = await _context.FollowUps.CountAsync(f =>
                 f.Status == "Open" &&
                 f.DueDate < now);
 
-            // 📊 SEND DATA
+            
             ViewBag.InspectionsThisMonth = inspectionsThisMonth;
             ViewBag.FailedThisMonth = failedThisMonth;
             ViewBag.OverdueFollowUps = overdueFollowUps;
 
-            // 📋 FILTER DROPDOWNS
+            
             ViewBag.Towns = await _context.Premises
                 .Select(p => p.Town)
                 .Distinct()

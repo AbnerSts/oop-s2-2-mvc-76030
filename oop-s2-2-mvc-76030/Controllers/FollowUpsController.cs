@@ -23,7 +23,7 @@ namespace FoodSafety.mvc.Controllers
             _logger = logger;
         }
 
-        // ✅ LIST
+        
         public async Task<IActionResult> Index()
         {
             var followUps = _context.FollowUps
@@ -33,7 +33,7 @@ namespace FoodSafety.mvc.Controllers
             return View(await followUps.ToListAsync());
         }
 
-        // ✅ DETAILS
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,21 +50,21 @@ namespace FoodSafety.mvc.Controllers
             return View(followUp);
         }
 
-        // ✅ GET CREATE
+        
         public IActionResult Create()
         {
             ViewData["InspectionId"] = new SelectList(_context.Inspections, "Id", "Id");
             return View();
         }
 
-        // ✅ POST CREATE
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FollowUp followUp)
         {
             var inspection = await _context.Inspections.FindAsync(followUp.InspectionId);
 
-            // ❗ BUSINESS RULE: DueDate must be after InspectionDate
+            
             if (inspection != null && followUp.DueDate < inspection.InspectionDate)
             {
                 ModelState.AddModelError("DueDate", "Due date cannot be before inspection date");
@@ -88,7 +88,7 @@ namespace FoodSafety.mvc.Controllers
             return View(followUp);
         }
 
-        // ✅ GET EDIT
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,7 +110,7 @@ namespace FoodSafety.mvc.Controllers
             if (id != followUp.Id)
                 return NotFound();
 
-            // ❗ BUSINESS RULE: Closed must have ClosedDate
+            
             if (followUp.Status == "Closed" && followUp.ClosedDate == null)
             {
                 ModelState.AddModelError("ClosedDate", "ClosedDate is required when status is Closed");
@@ -141,7 +141,7 @@ namespace FoodSafety.mvc.Controllers
             return View(followUp);
         }
 
-        // ✅ GET DELETE
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,7 +157,7 @@ namespace FoodSafety.mvc.Controllers
             return View(followUp);
         }
 
-        // ✅ POST DELETE
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

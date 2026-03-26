@@ -22,7 +22,6 @@ namespace FoodSafety.mvc.Controllers
             _logger = logger;
         }
 
-        // ✅ LIST
         public async Task<IActionResult> Index()
         {
             var inspections = _context.Inspections
@@ -31,7 +30,6 @@ namespace FoodSafety.mvc.Controllers
             return View(await inspections.ToListAsync());
         }
 
-        // ✅ DETAILS
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,14 +45,12 @@ namespace FoodSafety.mvc.Controllers
             return View(inspection);
         }
 
-        // ✅ GET CREATE
         public IActionResult Create()
         {
             ViewData["PremisesId"] = new SelectList(_context.Premises, "Id", "Name");
             return View();
         }
 
-        // ✅ POST CREATE
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Inspection inspection)
@@ -66,7 +62,6 @@ namespace FoodSafety.mvc.Controllers
 
             if (ModelState.IsValid)
             {
-                // Business rule
                 inspection.Outcome = inspection.Score < 70 ? "Fail" : "Pass";
 
                 _context.Add(inspection);
@@ -85,7 +80,6 @@ namespace FoodSafety.mvc.Controllers
             return View(inspection);
         }
 
-        // ✅ GET EDIT
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,7 +93,6 @@ namespace FoodSafety.mvc.Controllers
             return View(inspection);
         }
 
-        // ✅ POST EDIT
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Inspection inspection)
@@ -140,7 +133,6 @@ namespace FoodSafety.mvc.Controllers
             return View(inspection);
         }
 
-        // ✅ GET DELETE
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,7 +148,6 @@ namespace FoodSafety.mvc.Controllers
             return View(inspection);
         }
 
-        // ✅ POST DELETE
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

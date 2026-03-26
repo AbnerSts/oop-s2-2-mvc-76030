@@ -20,13 +20,11 @@ namespace FoodSafety.mvc.Controllers
             _logger = logger;
         }
 
-        // ✅ LIST
         public async Task<IActionResult> Index()
         {
             return View(await _context.Premises.ToListAsync());
         }
 
-        // ✅ DETAILS
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,13 +39,11 @@ namespace FoodSafety.mvc.Controllers
             return View(premises);
         }
 
-        // ✅ GET CREATE
         public IActionResult Create()
         {
             return View();
         }
 
-        // ✅ POST CREATE
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Premises premises)
@@ -65,7 +61,6 @@ namespace FoodSafety.mvc.Controllers
             return View(premises);
         }
 
-        // ✅ GET EDIT
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,7 +74,6 @@ namespace FoodSafety.mvc.Controllers
             return View(premises);
         }
 
-        // ✅ POST EDIT
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Premises premises)
@@ -110,7 +104,6 @@ namespace FoodSafety.mvc.Controllers
             return View(premises);
         }
 
-        // ✅ GET DELETE
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,7 +118,6 @@ namespace FoodSafety.mvc.Controllers
             return View(premises);
         }
 
-        // ✅ POST DELETE
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -13,7 +13,6 @@ namespace FoodSafety.mvc.Data
             if (context.Premises.Any())
                 return; // DB already seeded
 
-            // 🏠 Premises (12)
             var premisesList = new List<Premises>
             {
                 new Premises { Name = "Cafe One", Address = "1 Main St", Town = "Dublin", RiskRating = "High" },
@@ -33,7 +32,6 @@ namespace FoodSafety.mvc.Data
             context.Premises.AddRange(premisesList);
             await context.SaveChangesAsync();
 
-            // 🔍 Inspections (25)
             var inspections = new List<Inspection>();
             var rnd = new Random();
 
@@ -57,7 +55,6 @@ namespace FoodSafety.mvc.Data
             context.Inspections.AddRange(inspections);
             await context.SaveChangesAsync();
 
-            // 📌 FollowUps (10)
             var followUps = new List<FollowUp>();
 
             foreach (var i in inspections.Take(10))

@@ -11,7 +11,6 @@ namespace FoodSafety.mvc.Data
 
             string[] roles = { "Admin", "Inspector" };
 
-            // CREATE ROLES
             foreach (var role in roles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
@@ -23,7 +22,6 @@ namespace FoodSafety.mvc.Data
             // COMMON PASSWORD
             string password = "Admin123!";
 
-            // CREATE ADMIN USER
             string adminEmail = "admin@test.com";
             var user = await userManager.FindByEmailAsync(adminEmail);
 
@@ -39,7 +37,6 @@ namespace FoodSafety.mvc.Data
                 await userManager.AddToRoleAsync(user, "Admin");
             }
 
-            // CREATE INSPECTOR USER
             string inspectorEmail = "inspector@test.com";
             var inspector = await userManager.FindByEmailAsync(inspectorEmail);
 

@@ -27,9 +27,9 @@ public class DashboardTests
     {
         var context = DbContext;
 
-        var testDate = new DateTime(2026, 3, 1); // FIXED DATE (IMPORTANT)
+        var testDate = new DateTime(2026, 3, 1); 
 
-        // Premises
+        
         var premises = new Premises
         {
             Id = 1,
@@ -39,7 +39,7 @@ public class DashboardTests
         };
         context.Premises.Add(premises);
 
-        // Inspections
+        
         context.Inspections.Add(new Inspection
         {
             PremisesId = 1,
@@ -56,7 +56,7 @@ public class DashboardTests
             Score = 90
         });
 
-        // FollowUp (overdue)
+        
         context.FollowUps.Add(new FollowUp
         {
             InspectionId = 1,

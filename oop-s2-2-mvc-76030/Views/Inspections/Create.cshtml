@@ -1,0 +1,44 @@
+﻿@model FoodSafety.Domain.Models.Inspection
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<h2>Create Inspection</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-2">
+        <label asp-for="PremisesId"></label>
+        <select asp-for="PremisesId" asp-items="ViewBag.PremisesId" class="form-control"></select>
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="InspectionDate"></label>
+        <input asp-for="InspectionDate" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Score"></label>
+        <input asp-for="Score" class="form-control" />
+        <span asp-validation-for="Score" class="text-danger"></span>
+    </div>
+
+    <!-- 🔥 THIS WAS MISSING -->
+    <div class="mb-2">
+        <label asp-for="Outcome"></label>
+        <select asp-for="Outcome" class="form-control">
+            <option value="">-- Select Outcome --</option>
+            <option>Pass</option>
+            <option>Fail</option>
+        </select>
+        <span asp-validation-for="Outcome" class="text-danger"></span>
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Notes"></label>
+        <input asp-for="Notes" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

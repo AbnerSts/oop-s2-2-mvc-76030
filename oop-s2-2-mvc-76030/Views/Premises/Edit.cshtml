@@ -1,0 +1,38 @@
+﻿@model FoodSafety.Domain.Models.Premises
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<h2>Edit Premises</h2>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-2">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Town"></label>
+        <input asp-for="Town" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="RiskRating"></label>
+        <select asp-for="RiskRating" class="form-control">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

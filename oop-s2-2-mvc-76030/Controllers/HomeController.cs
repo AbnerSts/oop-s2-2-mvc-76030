@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using oop_s2_2_mvc_76030.Models;
+using FoodSafety.mvc.Models;
 
-namespace oop_s2_2_mvc_76030.Controllers
+namespace FoodSafety.mvc.Controllers
 {
     public class HomeController : Controller
     {

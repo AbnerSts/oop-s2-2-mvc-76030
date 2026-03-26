@@ -1,0 +1,16 @@
+﻿@model FoodSafety.Domain.Models.FollowUp
+
+<h2>Follow Up Details</h2>
+
+<div class="card p-3">
+    <p><strong>Inspection:</strong> #@Model.InspectionId</p>
+    <p><strong>Premises:</strong> @Model.Inspection?.Premises?.Name</p>
+    <p><strong>Due Date:</strong> @Model.DueDate.ToShortDateString()</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Closed Date:</strong> @Model.ClosedDate?.ToShortDateString()</p>
+</div>
+
+<br />
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

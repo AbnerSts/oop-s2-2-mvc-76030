@@ -1,4 +1,4 @@
-namespace oop_s2_2_mvc_76030.Models
+namespace FoodSafety.mvc.Models
 {
     public class ErrorViewModel
     {

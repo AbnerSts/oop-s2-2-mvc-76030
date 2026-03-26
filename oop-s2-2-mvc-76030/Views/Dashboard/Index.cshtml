@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2 class="mb-4">📊 Dashboard</h2>
+
+<form method="get" class="row g-2 mb-4">
+
+    <div class="col-md-4">
+        <select name="town" class="form-select">
+            <option value="">All Towns</option>
+            @foreach (var t in ViewBag.Towns)
+            {
+                <option value="@t">@t</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select name="risk" class="form-select">
+            <option value="">All Risks</option>
+            @foreach (var r in ViewBag.Risks)
+            {
+                <option value="@r">@r</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+
+</form>
+
+<div class="row">
+
+    <!-- INSPECTIONS -->
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3 shadow">
+            <div class="card-body text-center">
+                <h5>Inspections This Month</h5>
+                <h1>@ViewBag.InspectionsThisMonth</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAILED -->
+    <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3 shadow">
+            <div class="card-body text-center">
+                <h5>Failed Inspections</h5>
+                <h1>@ViewBag.FailedThisMonth</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERDUE -->
+    <div class="col-md-4">
+        <div class="card text-dark bg-warning mb-3 shadow">
+            <div class="card-body text-center">
+                <h5>Overdue Follow-Ups</h5>
+                <h1>@ViewBag.OverdueFollowUps</h1>
+            </div>
+        </div>
+    </div>
+
+</div>

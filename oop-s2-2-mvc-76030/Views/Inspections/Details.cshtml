@@ -1,0 +1,16 @@
+﻿@model FoodSafety.Domain.Models.Inspection
+
+<h2>Inspection Details</h2>
+
+<div class="card p-3">
+    <p><strong>Premises:</strong> @Model.Premises?.Name</p>
+    <p><strong>Date:</strong> @Model.InspectionDate.ToShortDateString()</p>
+    <p><strong>Score:</strong> @Model.Score</p>
+    <p><strong>Outcome:</strong> @Model.Outcome</p>
+    <p><strong>Notes:</strong> @Model.Notes</p>
+</div>
+
+<br />
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

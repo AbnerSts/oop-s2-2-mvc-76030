@@ -1,19 +1,52 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-oop_s2_2_mvc_76030-0039e927-52cb-44b2-ac1a-e461e3eb9936</UserSecretsId>
-    <RootNamespace>oop_s2_2_mvc_76030</RootNamespace>
+    <UserSecretsId>aspnet-FoodSafety.mvc-0039e927-52cb-44b2-ac1a-e461e3eb9936</UserSecretsId>
+    <RootNamespace>FoodSafety.mvc</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20260324225301_SeedFix.cs" />
+    <Compile Remove="Data\Migrations\20260324225301_SeedFix.Designer.cs" />
+    <Compile Remove="Data\Migrations\20260325195219_FixAll.cs" />
+    <Compile Remove="Data\Migrations\20260325195219_FixAll.Designer.cs" />
+    <Compile Remove="Data\Migrations\20260325213454_FixSqlServer.cs" />
+    <Compile Remove="Data\Migrations\20260325213454_FixSqlServer.Designer.cs" />
+    <Compile Remove="Data\Migrations\20260325235914_FixLogin.cs" />
+    <Compile Remove="Data\Migrations\20260325235914_FixLogin.Designer.cs" />
+    <Compile Remove="Data\Migrations\20260326000051_FixServer.cs" />
+    <Compile Remove="Data\Migrations\20260326000051_FixServer.Designer.cs" />
+    <Compile Remove="Data\Migrations\20260326073300_InitialClean.cs" />
+    <Compile Remove="Data\Migrations\20260326073300_InitialClean.Designer.cs" />
+    <Compile Remove="Data\Migrations\20260326074009_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20260326074009_InitialCreate.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.12" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodSafety.Domain\FoodSafety.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

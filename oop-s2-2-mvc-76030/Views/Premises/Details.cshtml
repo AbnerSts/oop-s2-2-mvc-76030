@@ -1,0 +1,15 @@
+﻿@model FoodSafety.Domain.Models.Premises
+
+<h2>Premises Details</h2>
+
+<div class="card p-3">
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Address:</strong> @Model.Address</p>
+    <p><strong>Town:</strong> @Model.Town</p>
+    <p><strong>Risk:</strong> @Model.RiskRating</p>
+</div>
+
+<br />
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

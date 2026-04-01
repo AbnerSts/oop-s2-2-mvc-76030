@@ -2,64 +2,68 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h2 class="mb-4">📊 Dashboard</h2>
+<h2>📊 Dashboard</h2>
 
-<form method="get" class="row g-2 mb-4">
+<!-- 🔍 FILTER FORM -->
+<form method="get">
+    <div class="row mb-4">
 
-    <div class="col-md-4">
-        <select name="town" class="form-select">
-            <option value="">All Towns</option>
-            @foreach (var t in ViewBag.Towns)
-            {
-                <option value="@t">@t</option>
-            }
-        </select>
+        <div class="col-md-4">
+            <select name="town" class="form-control">
+                <option value="">All Towns</option>
+                @foreach (var t in ViewBag.Towns)
+                {
+                    <option value="@t" selected="@(t == Context.Request.Query["town"])">@t</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <select name="risk" class="form-control">
+                <option value="">All Risks</option>
+                @foreach (var r in ViewBag.Risks)
+                {
+                    <option value="@r" selected="@(r == Context.Request.Query["risk"])">@r</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+
     </div>
-
-    <div class="col-md-4">
-        <select name="risk" class="form-select">
-            <option value="">All Risks</option>
-            @foreach (var r in ViewBag.Risks)
-            {
-                <option value="@r">@r</option>
-            }
-        </select>
-    </div>
-
-    <div class="col-md-4">
-        <button class="btn btn-primary w-100">Filter</button>
-    </div>
-
 </form>
 
+<!-- 📊 DASHBOARD CARDS -->
 <div class="row">
 
-    <!-- INSPECTIONS -->
-    <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3 shadow">
-            <div class="card-body text-center">
+    <!-- INSPECTIONS THIS MONTH -->
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-primary text-center">
+            <div class="card-body">
                 <h5>Inspections This Month</h5>
-                <h1>@ViewBag.InspectionsThisMonth</h1>
+                <h2>@ViewBag.InspectionsThisMonth</h2>
             </div>
         </div>
     </div>
 
-    <!-- FAILED -->
-    <div class="col-md-4">
-        <div class="card text-white bg-danger mb-3 shadow">
-            <div class="card-body text-center">
+    <!-- FAILED INSPECTIONS -->
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-danger text-center">
+            <div class="card-body">
                 <h5>Failed Inspections</h5>
-                <h1>@ViewBag.FailedThisMonth</h1>
+                <h2>@ViewBag.FailedThisMonth</h2>
             </div>
         </div>
     </div>
 
-    <!-- OVERDUE -->
-    <div class="col-md-4">
-        <div class="card text-dark bg-warning mb-3 shadow">
-            <div class="card-body text-center">
+    <!-- OVERDUE FOLLOW UPS -->
+    <div class="col-md-4 mb-3">
+        <div class="card text-dark bg-warning text-center">
+            <div class="card-body">
                 <h5>Overdue Follow-Ups</h5>
-                <h1>@ViewBag.OverdueFollowUps</h1>
+                <h2>@ViewBag.OverdueFollowUps</h2>
             </div>
         </div>
     </div>

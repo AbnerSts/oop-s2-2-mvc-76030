@@ -14,6 +14,7 @@ namespace FoodSafety.mvc.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<DashboardController> _logger;
+
         public DashboardController(ApplicationDbContext context, ILogger<DashboardController> logger)
         {
             _context = context;
@@ -22,46 +23,58 @@ namespace FoodSafety.mvc.Controllers
 
         public async Task<IActionResult> Index(string town, string risk)
         {
-            var now = DateTime.Now;
-
             var inspections = _context.Inspections
                 .Include(i => i.Premises)
                 .AsQueryable();
 
-            
+            // ✅ FILTER BY TOWN
             if (!string.IsNullOrEmpty(town))
             {
-                inspections = inspections.Where(i => i.Premises.Town == town);
+                inspections = inspections.Where(i =>
+                    i.Premises.Town.ToLower() == town.ToLower());
             }
 
-            
+            // ✅ FILTER BY RISK
             if (!string.IsNullOrEmpty(risk))
             {
-                inspections = inspections.Where(i => i.Premises.RiskRating == risk);
+                inspections = inspections.Where(i =>
+                    i.Premises.RiskRating.ToLower() == risk.ToLower());
             }
 
-            
-            var inspectionsThisMonth = await inspections.CountAsync(i =>
-                i.InspectionDate.Month == now.Month &&
-                i.InspectionDate.Year == now.Year);
+            // ✅ TOTAL INSPECTIONS
+            var inspectionsCount = await inspections.CountAsync();
 
-            
-            var failedThisMonth = await inspections.CountAsync(i =>
-                i.Outcome == "Fail" &&
-                i.InspectionDate.Month == now.Month &&
-                i.InspectionDate.Year == now.Year);
+            // ✅ FAILED INSPECTIONS
+            var failedCount = await inspections.CountAsync(i =>
+                i.Outcome == "Fail");
 
-            
-            var overdueFollowUps = await _context.FollowUps.CountAsync(f =>
-                f.Status == "Open" &&
-                f.DueDate < now);
+            // ✅ OVERDUE FOLLOW-UPS (FILTERED TOO)
+            var followUpsQuery = _context.FollowUps
+                .Include(f => f.Inspection)
+                .ThenInclude(i => i.Premises)
+                .Where(f => f.Status == "Open" && f.DueDate < DateTime.Now)
+                .AsQueryable();
 
-            
-            ViewBag.InspectionsThisMonth = inspectionsThisMonth;
-            ViewBag.FailedThisMonth = failedThisMonth;
+            if (!string.IsNullOrEmpty(town))
+            {
+                followUpsQuery = followUpsQuery.Where(f =>
+                    f.Inspection.Premises.Town.ToLower() == town.ToLower());
+            }
+
+            if (!string.IsNullOrEmpty(risk))
+            {
+                followUpsQuery = followUpsQuery.Where(f =>
+                    f.Inspection.Premises.RiskRating.ToLower() == risk.ToLower());
+            }
+
+            var overdueFollowUps = await followUpsQuery.CountAsync();
+
+            // ✅ SEND DATA TO VIEW
+            ViewBag.InspectionsThisMonth = inspectionsCount;
+            ViewBag.FailedThisMonth = failedCount;
             ViewBag.OverdueFollowUps = overdueFollowUps;
 
-            
+            // ✅ DROPDOWNS
             ViewBag.Towns = await _context.Premises
                 .Select(p => p.Town)
                 .Distinct()
